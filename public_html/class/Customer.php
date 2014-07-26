@@ -43,6 +43,6 @@ class Customer {
 
     public function getGender() {
         return $this->gender;
-    }
+    }        
 
 }

@@ -4,16 +4,29 @@ require_once 'class/Customer.php';
 require_once 'class/ListCustomer.php';
 
 /* Data Customers */
-$customerdata[] = new Customer("Eder", "eder@email.com", "999.999.999-99", "Cruzeiro", "SP", "Masculino");
-$customerdata[] = new Customer("Luana", "luana@email.com", "888.888.888-88", "Lavrinhas", "SP", "Feminino");
-$customerdata[] = new Customer("Roberto", "roberto@email.com", "777.777.777-77", "Volta Redonda", "RJ", "Masculino");
-$customerdata[] = new Customer("Angela", "angela@email.com", "666.666.666-66", "Baependí", "MG", "Feminino");
-$customerdata[] = new Customer("Ronaldo", "ronaldo@email.com", "555.555.555-55", "Cruzeiro", "SP", "Masculino");
-$customerdata[] = new Customer("Sueli", "sueli@email.com", "444.444.444-44", "Lavrinhas", "SP", "Feminino");
-$customerdata[] = new Customer("Renato", "renato@email.com", "333.333.333-33", "Cabo Frio", "RJ", "Masculino");
-$customerdata[] = new Customer("Joaquim", "joaquim@email.com", "222.222.222-22", "Passa Quatro", "MG", "Masculino");
-$customerdata[] = new Customer("José", "jose@email.com", "111.111.111-111", "Baependí", "MG", "Masculino");
-$customerdata[] = new Customer("Elaine", "elaine@email.com", "000.000.000-000", "Cruzeiro", "SP", "Feminino");
+$customerdata = [
+    new Customer("Eder", "eder@email.com", "999.999.999-99", "Cruzeiro", "SP", "Masculino"),
+    new Customer("Luana", "luana@email.com", "888.888.888-88", "Lavrinhas", "SP", "Feminino"),
+    new Customer("Roberto", "roberto@email.com", "777.777.777-77", "Volta Redonda", "RJ", "Masculino"),
+    new Customer("Angela", "angela@email.com", "666.666.666-66", "Baependí", "MG", "Feminino"),
+    new Customer("Ronaldo", "ronaldo@email.com", "555.555.555-55", "Cruzeiro", "SP", "Masculino"),
+    new Customer("Sueli", "sueli@email.com", "444.444.444-44", "Lavrinhas", "SP", "Feminino"),
+    new Customer("Renato", "renato@email.com", "333.333.333-33", "Cabo Frio", "RJ", "Masculino"),
+    new Customer("Joaquim", "joaquim@email.com", "222.222.222-22", "Passa Quatro", "MG", "Masculino"),
+    new Customer("José", "jose@email.com", "111.111.111-111", "Baependí", "MG", "Masculino"),
+    new Customer("Elaine", "elaine@email.com", "000.000.000-000", "Cruzeiro", "SP", "Feminino")
+];
+
+
+/* Sort */
+$order = array();
+foreach ($customerdata as $i => $customer) {
+    $order[$i] = $customer;
+}
+array_multisort($order, SORT_DESC, $customerdata);
+
+
+
 
 /* Prepare List Customers */
 $customer = new ListCustomers();
@@ -27,7 +40,6 @@ $customer->GetCustomers($customerdata[6]);
 $customer->GetCustomers($customerdata[7]);
 $customer->GetCustomers($customerdata[8]);
 $customer->GetCustomers($customerdata[9]);
-
 
 
 /* List Customers */
