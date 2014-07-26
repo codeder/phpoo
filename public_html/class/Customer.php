@@ -2,15 +2,15 @@
 
 class Customer {
 
-    public $nome;
+    public $name;
     public $email;
     public $cpf;
     public $city;
     public $uf;
     public $gender;
     
-    public function __construct($nome,$email,$cpf,$city,$uf,$gender) {
-        $this->nome = $nome;
+    public function __construct($name,$email,$cpf,$city,$uf,$gender) {
+        $this->name = $name;
         $this->email = $email;
         $this->cpf = $cpf;        
         $this->city = $city;
@@ -19,10 +19,9 @@ class Customer {
         
     }
     
-    /* Getters */
- 
-    public function getNome() {
-        return $this->nome;
+    /* Getters */ 
+    public function getName() {
+        return $this->name;
     }
 
     public function getEmail() {

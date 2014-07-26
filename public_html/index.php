@@ -18,41 +18,42 @@ $customerdata = [
 ];
 
 
-/* Sort */
+/* Orderna o array de Clientes em ordem crescente e decrescente */
 $order = array();
 foreach ($customerdata as $i => $customer) {
     $order[$i] = $customer;
 }
-array_multisort($order, SORT_DESC, $customerdata);
+array_multisort($order, SORT_ASC, $customerdata);
 
 
 
-
-/* Prepare List Customers */
-$customer = new ListCustomers();
-$customer->GetCustomers($customerdata[0]);
-$customer->GetCustomers($customerdata[1]);
-$customer->GetCustomers($customerdata[2]);
-$customer->GetCustomers($customerdata[3]);
-$customer->GetCustomers($customerdata[4]);
-$customer->GetCustomers($customerdata[5]);
-$customer->GetCustomers($customerdata[6]);
-$customer->GetCustomers($customerdata[7]);
-$customer->GetCustomers($customerdata[8]);
-$customer->GetCustomers($customerdata[9]);
+/* Objeto ListCustomers */
+  $customer = new ListCustomers();
 
 
-/* List Customers */
+/* Listando todos os clientes */
 if (!isset($_GET['id'])) {
     echo '<table border="1">';
     echo '<tr>';
     echo '<th>ID</th><th>Nome</th><th>E-mail</th><th>CPF</th><th>Cidade</th><th>Estado</th><th>Sexo</th>';
     echo '</tr>';
-    $customer->listCustomers();
+    $cont = 1;
+    foreach ($customerdata as $customer) {
+        echo "<tr>";
+        echo "<td>{$cont}</td>";
+        echo "<td><a href=\"?id={$cont}\">{$customer->name}</a></td>";
+        echo "<td>{$customer->email}</td>";
+        echo "<td>{$customer->cpf}</td>";
+        echo "<td>{$customer->city}</td>";
+        echo "<td>{$customer->uf}</td>";
+        echo "<td>{$customer->gender}</td>";
+        echo "</tr>";
+        $cont++;
+    }
     echo '</table>';
 } else {
 
-    /* Show Customer */
+    /* Mostra o cliente selecionado */
     $customer->GetShowCustomer($customerdata[$_GET['id'] - 1]);
     $customer->ShowCustomer();
 }
