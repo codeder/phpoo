@@ -1,7 +1,7 @@
 <?php
 
-require_once 'class/Customer.php';
-require_once 'class/ListCustomer.php';
+require_once 'inc/header.php';
+
 
 /* Data Customers */
 $customerdata = [
@@ -17,37 +17,59 @@ $customerdata = [
     new Customer("Elaine", "elaine@email.com", "000.000.000-000", "Cruzeiro", "SP", "Feminino")
 ];
 
-
-/* Orderna o array de Clientes em ordem crescente e decrescente */
+/* Orderna o array de Clientes em ordem crescente ou decrescente de acordo com o parâmetro GET */
 $order = array();
 foreach ($customerdata as $i => $customer) {
     $order[$i] = $customer;
 }
-array_multisort($order, SORT_ASC, $customerdata);
 
-
+/* Verifica o parâmetro e alterna a ordem do array */
+if ((isset($_GET['order'])) AND ( $_GET['order'] == "desc")) {
+    array_multisort($order, SORT_DESC, $customerdata);
+    $class = "/";
+    $o = "&order=desc";
+    $css = "glyphicon glyphicon-sort-by-alphabet";
+} else {
+    array_multisort($order, SORT_ASC, $customerdata);
+    $class = "?order=desc";
+    $o = "";
+    $css = "glyphicon glyphicon-sort-by-alphabet-alt";
+}
 
 /* Objeto ListCustomers */
-  $customer = new ListCustomers();
+$customer = new ListCustomers();
+?>
 
+
+<?php
 
 /* Listando todos os clientes */
 if (!isset($_GET['id'])) {
-    echo '<table border="1">';
+    echo '<div class="page-header"><h1>Lista de clientes da empresa</h1></div>';
+    echo '<table class="table table-striped">';
+    echo '<thead>';
     echo '<tr>';
-    echo '<th>ID</th><th>Nome</th><th>E-mail</th><th>CPF</th><th>Cidade</th><th>Estado</th><th>Sexo</th>';
-    echo '</tr>';
+
+    echo "<th>Nome  <a style=\"margin-left:15px;\" href=\"{$class}\" class=\"glyphicon {$css} \"></a></th>";
+    echo "<th>E-mail</th>";
+    echo "<th>CPF</th>";
+    echo "<th>Cidade</th>";
+    echo "<th>Estado</th>";
+    echo "<th>Sexo</th>";
+    echo "</tr>";
+    echo "</thead>";
     $cont = 1;
     foreach ($customerdata as $customer) {
+        echo "<tbody>";
         echo "<tr>";
-        echo "<td>{$cont}</td>";
-        echo "<td><a href=\"?id={$cont}\">{$customer->name}</a></td>";
+        echo "<td><a href=\"?id={$cont}{$o}\">{$customer->name}</a></td>";
         echo "<td>{$customer->email}</td>";
         echo "<td>{$customer->cpf}</td>";
         echo "<td>{$customer->city}</td>";
         echo "<td>{$customer->uf}</td>";
         echo "<td>{$customer->gender}</td>";
         echo "</tr>";
+        echo "</tbody>";
         $cont++;
     }
     echo '</table>';
@@ -59,3 +81,4 @@ if (!isset($_GET['id'])) {
 }
 ?>
 
+<?php require_once 'inc/footer.php'; ?>
